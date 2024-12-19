@@ -41,7 +41,7 @@ export const createUserController = async (req, res) => {
 
     const createdUser = await UserRepository.saveUser(newUser);
 
-    const url_verification = `http://localhost:${ENV.PORT}/api/auth/verify/${verificationToken}`;
+    const url_verification = `${ENV.FRONT_URL}/api/auth/verify/${verificationToken}`;
     console.log(url_verification);
     // Enviar correo de verificación
     await sendEmail({
@@ -357,8 +357,8 @@ export const forgotPasswordController = async (req, res) => {
         expiresIn: "1h",
       });
 
-      // URL de redirección al formulario de frontend
-      const resetUrl = `http://localhost:5173/reset/${resetToken}`;
+      // URL de redirección al formulario de frontend (usando la variable de entorno FRONTEND_URL)
+      const resetUrl = `${ENV.FRONT_URL}/reset/${resetToken}`;
 
       await sendEmail({
         to: user.email,

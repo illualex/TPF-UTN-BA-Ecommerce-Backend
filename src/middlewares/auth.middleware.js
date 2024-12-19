@@ -3,6 +3,7 @@ import crypto from "crypto";
 import bcrypt from "bcrypt";
 import nodemailer from "nodemailer";
 import User from "../models/user.model.js";
+import ENV from "../config/enviroment.config.js";
 import { verifyToken, isRolePermitted } from "./token.middleware.js";
 import { validateApiKey } from "./apiKey.middleware.js";
 import ResponseBuilder from "../utils/builders/responseBuilder.js";
@@ -158,12 +159,15 @@ export const recoverPassword = async (req, res) => {
       },
     });
 
+    // Modificar la URL de redirección al frontend utilizando FRONT_URL
+    const resetUrl = `${ENV.FRONT_URL}/reset-password?token=${token}`;
+
     const mailOptions = {
       to: email,
       from: process.env.EMAIL_USER,
       subject: "Password Reset Request",
       text: `Please click the following link to reset your password: 
-             http://localhost:3000/reset-password?token=${token}`,
+             ${resetUrl}`,
     };
 
     transporter.sendMail(mailOptions, (err, info) => {
