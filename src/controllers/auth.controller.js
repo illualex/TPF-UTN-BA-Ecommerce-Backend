@@ -43,6 +43,7 @@ export const createUserController = async (req, res) => {
 
     const url_verification = `${ENV.FRONT_URL}/api/auth/verify/${verificationToken}`;
     console.log(url_verification);
+
     // Enviar correo de verificación
     await sendEmail({
       to: email,
@@ -134,75 +135,11 @@ export const verifyMailValidationTokenController = async (req, res) => {
     user.emailVerified = true;
     await user.save();
 
-    return res.status(200).send(`
-      <!DOCTYPE html>
-      <html lang="es">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Verificación de Correo - GamerMania</title>
-        <style>
-          body {
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f1f3f5;
-            color: #333;
-          }
-          .container {
-            text-align: center;
-            padding: 30px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 500px;
-          }
-          h1 {
-            color: #28a745;
-            font-size: 28px;
-            font-weight: bold;
-          }
-          p {
-            font-size: 18px;
-            color: #555;
-            margin-bottom: 20px;
-          }
-          button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            font-size: 18px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-          }
-          button:hover {
-            background-color: #0056b3;
-          }
-          footer {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #777;
-          }
-        </style>
-      </head>
-      <body>
-        <div class="container">
-          <h1>¡Correo Electrónico Verificado!</h1>
-          <p>Tu correo ha sido verificado con éxito. Ahora puedes cerrar esta ventana.</p>
-          <button onclick="window.close()">Cerrar</button>
-          <footer>
-            <p>© 2024 GamerMania. Todos los derechos reservados.</p>
-          </footer>
-        </div>
-      </body>
-      </html>
-    `);
+    // Redirigir al frontend con un mensaje de éxito
+    return res.status(200).json({
+      message: "Email successfully verified",
+      user: user,
+    });
   } catch (err) {
     console.error("Error al verificar el email:", err.message);
 
