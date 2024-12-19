@@ -41,7 +41,7 @@ export const createUserController = async (req, res) => {
 
     const createdUser = await UserRepository.saveUser(newUser);
 
-    const url_verification = `${ENV.FRONT_URL}/api/auth/verify/${verificationToken}`;
+    const url_verification = `${ENV.FRONT_URL}/verify/${verificationToken}`;
     console.log(url_verification);
 
     // Enviar correo de verificación
