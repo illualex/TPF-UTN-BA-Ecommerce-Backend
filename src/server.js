@@ -19,8 +19,14 @@ import ProductRepository from "./repositories/product.repository.js";
 const app = express();
 const PORT = ENV.PORT || 3000;
 
-// Middleware global
-app.use(cors()); // Permite solicitudes CORS
+// Configuración de CORS para permitir solicitudes solo desde el frontend de Vercel
+const corsOptions = {
+  origin: "https://tpf-utn-ba-ecommerce-frontend.vercel.app", // URL de tu frontend en Vercel
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"], // Los encabezados que permites
+};
+
+app.use(cors(corsOptions)); // Aplicar CORS con las opciones configuradas
 app.use(express.json({ limit: "5mb" })); // Límite de 5mb para las peticiones JSON
 
 // Middleware para logs de las peticiones
