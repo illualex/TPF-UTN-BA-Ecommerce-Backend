@@ -4,11 +4,11 @@ import { verifyApiKeyMiddleware, verifyTokenMiddleware } from "../middlewares/au
 
 const statusRouter = express.Router();
 
+// Ruta para hacer un ping público (sin autenticación)
+statusRouter.get("/ping", getPingController);
+
 // Verificación del API Key en todas las rutas
 statusRouter.use(verifyApiKeyMiddleware);
-
-// Ruta para hacer un ping público (sin autenticación)
-statusRouter.get("/status/ping", getPingController);
 
 // Ruta protegida para hacer un ping (requiere autenticación y rol)
 statusRouter.get("/protected-route/ping", verifyTokenMiddleware(["admin", "user"]), getPingController);
