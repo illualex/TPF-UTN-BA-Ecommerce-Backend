@@ -19,4 +19,4 @@ Dificultades Y Aprendizajes:
 - Tuve complicaciones para entender como funcionaba MongoDB ya que era la primera vez que lo usaba, ya sabia usar SQL, pero quería probar una nueva forma de datos para este Trabajo final y aprender de como funciona para un futuro.
 - Dificultades en el armado del correo y que funcione el envió.
 - Tuve complicaciones en entender que el orden de las routes, influye en el comportamiento de las rutas protegidas y no protegidas. Ejemplo, utilizar /status/ping o obtener productos sin necesidad de token de verificación.
-- Se dificulto bastante en el despliegue en Vercel.
+- LLevo tiempo la configuración y despliegue en Vercel.
