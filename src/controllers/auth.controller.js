@@ -291,7 +291,7 @@ export const forgotPasswordController = async (req, res) => {
           <div style="font-family: 'Arial', sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 10px;">
             <h1 style="color: #222; text-align: center;">Restablecimiento de Contraseña</h1>
             <p style="font-size: 16px; color: #555; line-height: 1.6; text-align: justify;">
-              Hola Terrícola, <br/><br/>
+              Hola Gamer, <br/><br/>
               Hemos recibido una solicitud para restablecer la contraseña de tu cuenta en <b>GamerMania</b>. 
               Si hiciste esta solicitud, por favor haz clic en el botón de abajo para restablecer tu contraseña. 
               Este enlace será válido por <b>1 hora</b>.
