@@ -17,10 +17,14 @@ const app = express();
 const PORT = ENV.PORT || 3000;
 
 const corsOptions = {
-  origin: "https://tpf-utn-ba-ecommerce-frontend.vercel.app",
+  origin: [
+    "https://tpf-utn-ba-ecommerce-frontend.vercel.app",
+    "http://localhost:5173"
+  ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
+
 
 app.use(cors(corsOptions));
 app.use(express.json({ limit: "5mb" }));
