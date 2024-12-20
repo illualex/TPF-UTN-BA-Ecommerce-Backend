@@ -1,5 +1,5 @@
------- Descripción ------
-Proyecto: Backend del E-Commerce de mi Frontend ya creado de la primera entrega.
+------  Descripción  ------
+- Proyecto: Backend del E-Commerce de mi Frontend ya creado de la primera entrega.
 
 Para el armado se tomo en cuenta lo que vimos en clases, foros y leyendo en documentación.
 Se utilizo un ENV para datos sensibles, mongoDB para base de datos, controladores, middlewares de verificación y token, tres modelos para mi ecommerce, repositorio, rutas personalizadas y utilidades para enviar correo.
