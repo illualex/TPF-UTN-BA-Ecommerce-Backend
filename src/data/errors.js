@@ -1,6 +1,3 @@
-import UserRepository from "../repositories/user.repository.js";
-
-// Funciones de validación
 const validateEmail = (value) => {
   const regex =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\\.,;:\s@"]+\.)+[^<>()[\]\\.,;:\s@"]{2,})$/i;
@@ -15,7 +12,6 @@ const validateNotEmpty = (value) => value.trim() !== "";
 
 const validateCategorySelected = (value) => value !== null;
 
-// Objeto de errores
 export const ERRORS = {
   USERNAME_LENGTH: {
     message: "Your name must be at least 3 characters long",
@@ -71,21 +67,3 @@ export const ERRORS = {
     validate: validateNotEmpty,
   },
 };
-
-// Ejemplo de funciones comentadas que puedes implementar si las necesitas más adelante
-// const validateEmailNotRegistered = async (email) => {
-//   try {
-//     const user = await UserRepository.getByEmail(email);
-//     return user === null; // Devuelve true si el email no está registrado
-//   } catch (err) {
-//     console.error("Error validating email:", err.message);
-//     return false;
-//   }
-// };
-
-// EMAIL_ALREADY_REGISTERED: {
-//   message: "This email is already registered",
-//   id: 10,
-//   property: "email",
-//   validate: validateEmailNotRegistered,
-// },

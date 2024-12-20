@@ -6,18 +6,15 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   lastName: {
-    // Nuevo campo para apellido
     type: String,
     required: true,
   },
   dni: {
-    // Nuevo campo para DNI
     type: String,
     required: true,
-    unique: true, // Si quieres que el DNI sea único
+    unique: true,
   },
   phone: {
-    // Nuevo campo para teléfono
     type: String,
     required: true,
   },
@@ -35,21 +32,19 @@ const userSchema = new mongoose.Schema({
     default: false,
   },
   verificationToken: {
-    type: String, // Este token se usará para verificar el correo electrónico o para la recuperación de cuenta
+    type: String,
     required: true,
   },
   role: {
     type: String,
     required: true,
-    default: "user", // Puedes cambiar el valor predeterminado si manejas diferentes roles
+    default: "user",
   },
   resetPasswordToken: {
-    // Token para recuperar la contraseña
     type: String,
     default: null,
   },
   resetPasswordExpires: {
-    // Fecha de expiración del token de recuperación
     type: Date,
     default: null,
   },

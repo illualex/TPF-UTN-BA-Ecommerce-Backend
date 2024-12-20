@@ -1,7 +1,5 @@
-// src/controllers/subscription.controller.js
 import SubscriptionRepository from "../repositories/subscription.repository.js";
 import { responseBuilder } from "../utils/builders/responseBuilder.js";
-
 
 export const createSubscriptionController = async (req, res) => {
   try {
@@ -15,7 +13,6 @@ export const createSubscriptionController = async (req, res) => {
       );
     }
 
-    // Verificar si el correo ya está suscrito
     const existingSubscription = await SubscriptionRepository.findByEmail(
       email
     );
@@ -27,7 +24,6 @@ export const createSubscriptionController = async (req, res) => {
       );
     }
 
-    // Crear la suscripción
     const newSubscription = await SubscriptionRepository.createSubscription(
       email
     );

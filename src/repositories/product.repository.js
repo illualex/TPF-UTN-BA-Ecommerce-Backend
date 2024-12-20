@@ -2,8 +2,7 @@ import Product from "../models/product.model.js";
 
 class ProductRepository {
   /**
-   * Retrieves all products from the database
-   * @returns {Promise<Product[]>} An array of all products
+   * @returns {Promise<Product[]>}
    */
   static async getAll() {
     try {
@@ -14,13 +13,12 @@ class ProductRepository {
   }
 
   /**
-   * Retrieves products by name using a case-insensitive partial match
-   * @param {string} name - The name or part of the name to search for
-   * @returns {Promise<Product[]>} An array of products matching the name
+   * @param {string} name
+   * @returns {Promise<Product[]>}
    */
   static async getByName(name) {
     try {
-      const regex = new RegExp(name, "i"); // Case-insensitive search
+      const regex = new RegExp(name, "i");
       return await Product.find({
         name: { $regex: regex },
       });

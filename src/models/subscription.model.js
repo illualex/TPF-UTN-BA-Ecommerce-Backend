@@ -1,16 +1,15 @@
-// src/models/subscription.model.js
 import mongoose from "mongoose";
 
 const subscriptionSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true, // Para evitar duplicados
-    match: [/.+\@.+\..+/, "Please fill a valid email address"], // Validación básica
+    unique: true,
+    match: [/.+\@.+\..+/, "Please fill a valid email address"],
   },
   subscribedAt: {
     type: Date,
-    default: Date.now, // Fecha de suscripción
+    default: Date.now,
   },
 });
 

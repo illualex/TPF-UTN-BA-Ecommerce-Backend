@@ -16,7 +16,7 @@ const productSchema = new mongoose.Schema({
   stock: {
     type: Number,
     required: true,
-    default: 0, // Puedes agregar un valor predeterminado si no tienes stock en tu JSON
+    default: 0,
   },
   category: {
     type: String,
@@ -29,10 +29,9 @@ const productSchema = new mongoose.Schema({
     select: false,
   },
   image: {
-    type: String, // Usamos String para la ruta de la imagen (puedes cambiar el nombre del campo según convenga)
+    type: String,
   },
   productType: {
-    // Nuevo campo que podrías usar si "product" en tu JSON tiene un propósito específico.
     type: String,
     required: true,
   },

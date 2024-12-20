@@ -2,9 +2,8 @@ import User from "../models/user.model.js";
 
 class UserRepository {
   /**
-   * Retrieves a user by their id
-   * @param {string} id - User identifier
-   * @returns {Promise<User>} The user with the given id
+   * @param {string} id
+   * @returns {Promise<User>}
    */
   static async getById(id) {
     const user = await User.findOne({ _id: id });
@@ -12,9 +11,8 @@ class UserRepository {
   }
 
   /**
-   * Retrieves a user by their email
-   * @param {string} email - User email
-   * @returns {Promise<User>} The user with the given email
+   * @param {string} email
+   * @returns {Promise<User>}
    */
   static async getByEmail(email) {
     const user = await User.findOne({ email });
@@ -22,8 +20,7 @@ class UserRepository {
   }
 
   /**
-   * Retrieves all users
-   * @returns {Promise<User[]>} A list of all users
+   * @returns {Promise<User[]>}
    */
   static async getAll() {
     const users = await User.find({});
@@ -31,43 +28,41 @@ class UserRepository {
   }
 
   /**
-   * Saves a new or existing user
-   * @param {User} userData - The user to be saved
-   * @returns {Promise<User>} The saved user
+   *
+   * @param {User} userData
+   * @returns {Promise<User>}
    */
   static async saveUser(userData) {
-    const user = new User(userData); // Crear una instancia del modelo User
+    const user = new User(userData);
     return await user.save();
   }
 
   /**
-   * Updates a user by their id
-   * @param {string} id - User identifier
-   * @param {Object} updates - Fields to update
-   * @returns {Promise<User>} The updated user
+   * @param {string} id
+   * @param {Object} updates
+   * @returns {Promise<User>}
    */
   static async updateById(id, updates) {
     const updatedUser = await User.findByIdAndUpdate(id, updates, {
-      new: true, // Retorna el documento actualizado
-      runValidators: true, // Aplica las validaciones del esquema
+      new: true,
+      runValidators: true,
     });
     return updatedUser;
   }
 
   /**
-   * Deletes a user by their id
-   * @param {string} id - User identifier
-   * @returns {Promise<void>} A promise that resolves when the user is deleted
+  
+   * @param {string} id 
+   * @returns {Promise<void>} 
    */
   static async deleteById(id) {
     await User.findByIdAndDelete(id);
   }
 
   /**
-   * Sets the email verification status for a user
-   * @param {boolean} value - Verification status
-   * @param {string} user_id - User identifier
-   * @returns {Promise<User>} The updated user
+   * @param {boolean} value
+   * @param {string} user_id
+   * @returns {Promise<User>}
    */
   static async setEmailVerified(value, user_id) {
     const user = await UserRepository.getById(user_id);

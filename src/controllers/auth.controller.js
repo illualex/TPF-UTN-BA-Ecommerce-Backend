@@ -6,7 +6,6 @@ import UserRepository from "../repositories/user.repository.js";
 import ResponseBuilder from "../utils/builders/responseBuilder.js";
 import { sendEmail } from "../utils/mail.util.js";
 
-// Controlador para crear un usuario
 export const createUserController = async (req, res) => {
   try {
     const { name, lastName, dni, phone, email, password } = req.body;
@@ -42,9 +41,7 @@ export const createUserController = async (req, res) => {
     const createdUser = await UserRepository.saveUser(newUser);
 
     const url_verification = `${ENV.FRONT_URL}/verify/${verificationToken}`;
-    console.log(url_verification);
 
-    // Enviar correo de verificación
     await sendEmail({
       to: email,
       subject: "Verificación de Email - GamerMania",
@@ -97,7 +94,6 @@ export const createUserController = async (req, res) => {
 export const verifyMailValidationTokenController = async (req, res) => {
   try {
     const { verification_token } = req.params;
-    console.log("verificación", verification_token);
 
     if (!verification_token) {
       return res
@@ -112,11 +108,8 @@ export const verifyMailValidationTokenController = async (req, res) => {
         );
     }
 
-    // Verificar el token JWT
     const decoded = jwt.verify(verification_token, ENV.JWT_SECRET);
     const user = await User.findOne({ email: decoded.email });
-
-    console.log("usuario", user);
 
     if (!user) {
       return res.status(404).json(
@@ -131,18 +124,14 @@ export const verifyMailValidationTokenController = async (req, res) => {
       );
     }
 
-    // Actualizar el estado del email verificado
     user.emailVerified = true;
     await user.save();
 
-    // Redirigir al frontend con un mensaje de éxito
     return res.status(200).json({
       message: "Email successfully verified",
       user: user,
     });
   } catch (err) {
-    console.error("Error al verificar el email:", err.message);
-
     if (err.name === "TokenExpiredError") {
       return res
         .status(400)
@@ -260,7 +249,6 @@ export const forgotPasswordController = async (req, res) => {
   try {
     const { email } = req.body;
 
-    // Verifica si el email fue proporcionado
     if (!email) {
       return res
         .status(400)
@@ -294,7 +282,6 @@ export const forgotPasswordController = async (req, res) => {
         expiresIn: "1h",
       });
 
-      // URL de redirección al formulario de frontend (usando la variable de entorno FRONTEND_URL)
       const resetUrl = `${ENV.FRONT_URL}/reset/${resetToken}`;
 
       await sendEmail({

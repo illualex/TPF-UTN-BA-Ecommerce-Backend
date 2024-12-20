@@ -1,12 +1,9 @@
 import UserRepository from "../repositories/user.repository.js";
 import { responseBuilder } from "../utils/builders/responseBuilder.js";
 
-// Controlador para obtener un usuario por su correo electrónico (requiere autenticación)
 export const getUserByEmailController = async (req, res) => {
   try {
-    console.log("llega")
-    // El correo electrónico se extrae del token de autenticación (JWT)
-    const { email } = req.user; // Asumiendo que el correo electrónico está en el token JWT (decodificado en el middleware)
+    const { email } = req.user;
 
     if (!email) {
       return res.status(400).json(
@@ -16,7 +13,7 @@ export const getUserByEmailController = async (req, res) => {
       );
     }
 
-    const user = await UserRepository.getByEmail(email); // Buscar al usuario por su correo electrónico
+    const user = await UserRepository.getByEmail(email);
 
     if (!user) {
       return res
@@ -36,7 +33,6 @@ export const getUserByEmailController = async (req, res) => {
   }
 };
 
-// Controlador para obtener todos los usuarios
 export const getAllUsersController = async (req, res) => {
   try {
     const users = await UserRepository.getAll();
@@ -59,7 +55,6 @@ export const getAllUsersController = async (req, res) => {
   }
 };
 
-// Controlador para obtener un usuario por ID
 export const getUserByIdController = async (req, res) => {
   try {
     const { user_id } = req.params;
@@ -92,7 +87,6 @@ export const getUserByIdController = async (req, res) => {
   }
 };
 
-// Controlador para actualizar un usuario
 export const updateUserController = async (req, res) => {
   try {
     const { user_id } = req.params;
@@ -121,7 +115,6 @@ export const updateUserController = async (req, res) => {
   }
 };
 
-// Controlador para eliminar un usuario
 export const deleteUserController = async (req, res) => {
   try {
     const { user_id } = req.params;

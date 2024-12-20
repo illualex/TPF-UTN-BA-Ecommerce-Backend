@@ -9,7 +9,7 @@ import { validateApiKey } from "./apiKey.middleware.js";
 import ResponseBuilder from "../utils/builders/responseBuilder.js";
 
 export const authenticateJWT = (req, res, next) => {
-  const token = req.header("Authorization")?.split(" ")[1]; // Obtener el token del header Authorization
+  const token = req.header("Authorization")?.split(" ")[1];
 
   if (!token) {
     const response = new ResponseBuilder()
@@ -23,11 +23,10 @@ export const authenticateJWT = (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET); // Verificar el token
-    req.user = decoded; // Agregar los datos del usuario al request
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
     next();
   } catch (err) {
-    console.error("Error verifying token:", err.message);
     const response = new ResponseBuilder()
       .setOk(false)
       .setStatus(401)
@@ -39,7 +38,6 @@ export const authenticateJWT = (req, res, next) => {
   }
 };
 
-// Función para verificar el token y permisos de rol
 export const verifyTokenMiddleware = (permited_roles = []) => {
   return (req, res, next) => {
     try {
@@ -95,11 +93,9 @@ export const verifyTokenMiddleware = (permited_roles = []) => {
   };
 };
 
-// Función para verificar la clave de API
 export const verifyApiKeyMiddleware = (req, res, next) => {
   try {
     const apikey_header = req.header("x-api-key");
-    console.log(apikey_header);
     if (!validateApiKey(apikey_header)) {
       const response = new ResponseBuilder()
         .setOk(false)
@@ -124,12 +120,10 @@ export const verifyApiKeyMiddleware = (req, res, next) => {
   }
 };
 
-// Función para solicitar la recuperación de la contraseña (enviar el token al correo)
 export const recoverPassword = async (req, res) => {
   const { email } = req.body;
 
   try {
-    // Buscar al usuario por su correo
     const user = await User.findOne({ email });
     if (!user) {
       const response = new ResponseBuilder()
@@ -141,25 +135,21 @@ export const recoverPassword = async (req, res) => {
       return res.status(404).json(response);
     }
 
-    // Generar un token de recuperación
     const token = crypto.randomBytes(20).toString("hex");
-    const expires = Date.now() + 3600000; // Token válido por 1 hora
+    const expires = Date.now() + 3600000;
 
-    // Guardar el token y la fecha de expiración en la base de datos
     user.resetPasswordToken = token;
     user.resetPasswordExpires = expires;
     await user.save();
 
-    // Enviar el correo electrónico con el token
     const transporter = nodemailer.createTransport({
-      service: "gmail", // O el servicio que uses
+      service: "gmail",
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
     });
 
-    // Modificar la URL de redirección al frontend utilizando FRONT_URL
     const resetUrl = `${ENV.FRONT_URL}/reset-password?token=${token}`;
 
     const mailOptions = {
@@ -200,15 +190,13 @@ export const recoverPassword = async (req, res) => {
   }
 };
 
-// Función para restablecer la contraseña
 export const resetPassword = async (req, res) => {
   const { token, password } = req.body;
 
   try {
-    // Verificar el token y la expiración
     const user = await User.findOne({
       resetPasswordToken: token,
-      resetPasswordExpires: { $gt: Date.now() }, // Verificar que no haya expirado
+      resetPasswordExpires: { $gt: Date.now() },
     });
 
     if (!user) {
@@ -221,10 +209,8 @@ export const resetPassword = async (req, res) => {
       return res.status(400).json(response);
     }
 
-    // Encriptar la nueva contraseña
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Guardar la nueva contraseña y limpiar los campos de token
     user.password = hashedPassword;
     user.resetPasswordToken = undefined;
     user.resetPasswordExpires = undefined;
